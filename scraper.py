@@ -1,0 +1,1 @@
+# Gets Ethereum ETF headlines
