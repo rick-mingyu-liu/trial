@@ -3,21 +3,28 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import requests
+import os
+from dotenv import load_dotenv
 
+# === Load environment variables ===
+load_dotenv()
+ETH_API_URL = os.getenv("COINGECKO_ETH_URL")
+
+# === Streamlit page setup ===
 st.set_page_config(page_title="Ethereum ETF Sentiment Dashboard", layout="wide")
 
-# === Load Data ===
+# === Load Sentiment Data ===
 @st.cache_data
 def load_data():
     return pd.read_csv("sentiment_scores.csv")
 
-# === Get ETH Price ===
+# === Get Live ETH Price ===
 @st.cache_data(ttl=300)
 def get_eth_price():
     try:
-        res = requests.get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
+        res = requests.get(ETH_API_URL)
         data = res.json()
-        return data["ethereum"]["usd"]
+        return float(data["ethereum"]["usd"])
     except:
         return None
 
@@ -32,7 +39,7 @@ else:
 
 df = load_data()
 
-# === Sidebar Sentiment Filter ===
+# === Sidebar: Sentiment Filter ===
 st.sidebar.title("🔍 Filter Sentiment")
 sentiment = st.sidebar.radio("Select sentiment type:", ("All", "Positive", "Negative", "Neutral"))
 
@@ -47,15 +54,11 @@ else:
 
 # === Headlines Table ===
 st.subheader("📰 Headlines")
-
-# Reindex to start from 1
 table_display = filtered[["headline", "compound"]].copy()
 table_display.index = range(1, len(table_display) + 1)
-
 st.dataframe(table_display, use_container_width=True)
 
-
-# === Histogram Plot ===
+# === Histogram ===
 st.subheader("📊 Sentiment Score Distribution")
 fig, ax = plt.subplots(figsize=(6, 4))
 ax.hist(filtered["compound"], bins=10, color='skyblue', edgecolor='black')
