@@ -1,8 +1,8 @@
 # Ethereum ETF Sentiment Dashboard
-- Deploy on: https://rick-mingyu-liu-trial-app-zgjeft.streamlit.app/
 
 A lightweight NLP dashboard for analyzing public sentiment around Ethereum ETF news headlines. Built with **Streamlit**, the dashboard lets you:
 
+- Deploy on: https://rick-mingyu-liu-trial-app-zgjeft.streamlit.app/
 - Scrape and analyze news headlines  
 - Visualize sentiment distribution  
 - Generate a word cloud of popular keywords  
