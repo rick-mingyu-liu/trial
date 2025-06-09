@@ -1,7 +1,13 @@
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import csv
+import os
 
-def load_headlines(file_path="ethereum_etf_headlines.txt"):
+# Input/output file paths
+INPUT_FILE = "files/ethereum_etf_headlines.txt"
+OUTPUT_FILE = "files/sentiment_scores.csv"
+os.makedirs("files", exist_ok=True)
+
+def load_headlines(file_path=INPUT_FILE):
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             return [line.strip() for line in f if line.strip()]
@@ -25,7 +31,7 @@ def analyze_sentiment(headlines):
 
     return results
 
-def save_results(results, output_file="sentiment_scores.csv"):
+def save_results(results, output_file=OUTPUT_FILE):
     try:
         with open(output_file, "w", encoding="utf-8", newline='') as f:
             writer = csv.DictWriter(f, fieldnames=["headline", "compound", "pos", "neu", "neg"])
@@ -44,7 +50,6 @@ if __name__ == "__main__":
         scores = analyze_sentiment(headlines)
         save_results(scores)
 
-        # Print summary
         avg_score = sum([s["compound"] for s in scores]) / len(scores)
         print(f"\n[INFO] Analyzed {len(scores)} headlines")
         print(f"[INFO] Average compound score: {avg_score:.3f}")

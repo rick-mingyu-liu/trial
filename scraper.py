@@ -6,7 +6,11 @@ import os
 load_dotenv()
 API_KEY = os.getenv("NEWSAPI_KEY")
 
-def scrape_ethereum_etf_headlines(api_key, num_articles=30, output_file="ethereum_etf_headlines.txt"):
+# Ensure output folder exists
+OUTPUT_DIR = "files"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+def scrape_ethereum_etf_headlines(api_key, num_articles=30, output_file="files/ethereum_etf_headlines.txt"):
     newsapi = NewsApiClient(api_key=api_key)
 
     try:

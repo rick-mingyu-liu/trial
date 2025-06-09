@@ -41,5 +41,5 @@ COINGECKO_ETH_URL=https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_
 
 3. **Run Streamlit app**:
 ```bash
-Run Streamlit app:
+streamlit run app.py
 ```

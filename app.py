@@ -16,7 +16,7 @@ st.set_page_config(page_title="Ethereum ETF Sentiment Dashboard", layout="wide")
 # === Load Sentiment Data ===
 @st.cache_data
 def load_data():
-    return pd.read_csv("sentiment_scores.csv")
+    return pd.read_csv("files/sentiment_scores.csv")
 
 # === Get Live ETH Price ===
 @st.cache_data(ttl=300)
