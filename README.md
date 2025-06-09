@@ -1,5 +1,6 @@
 # Ethereum ETF Sentiment Dashboard
 - Deploy on: https://rick-mingyu-liu-trial-app-zgjeft.streamlit.app/
+
 A lightweight NLP dashboard for analyzing public sentiment around Ethereum ETF news headlines. Built with **Streamlit**, the dashboard lets you:
 
 - Scrape and analyze news headlines  
@@ -36,7 +37,6 @@ pip install -r requirements.txt
 2. Set up .env file:
 ```bash
 NEWSAPI_KEY=your key
-COINGECKO_ETH_URL=https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd
 ```
 
 3. **Run Streamlit app**:

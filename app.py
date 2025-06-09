@@ -3,12 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import requests
-import os
 from dotenv import load_dotenv
 
 # === Load environment variables ===
 load_dotenv()
-ETH_API_URL = os.getenv("COINGECKO_ETH_URL")
+ETH_API_URL = st.secrets["COINGECKO_ETH_URL"]
 
 # === Streamlit page setup ===
 st.set_page_config(page_title="Ethereum ETF Sentiment Dashboard", layout="wide")
