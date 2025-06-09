@@ -3,11 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import requests
-from dotenv import load_dotenv
 
-# === Load environment variables ===
-load_dotenv()
-ETH_API_URL = st.secrets["COINGECKO_ETH_URL"]
+# === Load CoinGecko API URL from secrets.toml ===
+ETH_API_URL = st.secrets.get("COINGECKO_ETH_URL")
 
 # === Streamlit page setup ===
 st.set_page_config(page_title="Ethereum ETF Sentiment Dashboard", layout="wide")
@@ -20,11 +18,16 @@ def load_data():
 # === Get Live ETH Price ===
 @st.cache_data(ttl=300)
 def get_eth_price():
+    if not ETH_API_URL:
+        st.error("API URL not found in Streamlit secrets.")
+        return None
     try:
         res = requests.get(ETH_API_URL)
+        res.raise_for_status()
         data = res.json()
         return float(data["ethereum"]["usd"])
-    except:
+    except Exception as e:
+        st.error(f"Failed to fetch ETH price: {e}")
         return None
 
 # === Main Dashboard ===
